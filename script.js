@@ -12,28 +12,29 @@
      y : 1, 
      w : 20, 
      h : 650, 
-     fillColor : "red", 
+     
+     alpha	: 1 
      });
      var wall2 = game.newRectObject(   { 
      x : 1, 
      y : 1, 
      w : 650, 
      h : 20, 
-     fillColor : "red", 
+     alpha : 1
       });
      var wall3 = game.newRectObject(   { 
      x : 630, 
      y : 1, 
      w : 20, 
      h : 650, 
-     fillColor : "red", 
+     alpha : 1
      });
      var wall4 = game.newRectObject(   { 
      x : 1, 
      y : 460, 
      w : 650, 
      h : 20, 
-     fillColor : "red", 
+     alpha : 1 
      });
 	 
 	 var AIM = game.newCircleObject(   { 
@@ -72,24 +73,46 @@
 		 
      for(var i in WALL) {
 		 
-	  if(AIM.isStaticIntersect(WALL[i].getStaticBox())){
+	  if(WALL[i].isStaticIntersect(AIM.getStaticBoxA(-speed,0,speed))){
 		 
 		 if(dX == -speed){
 		 dX = 0;
+		 AIM.setPosition(p(WALL[i].x+WALL[i].w,AIM.y))
 		 }
+	     } 
+		 
+	  if(WALL[i].isStaticIntersect(AIM.getStaticBoxD(0,0,speed))){
+		 
+		 if(dX == speed){
 			 
-	     if(dX == speed){
 		 dX = 0;
+		 AIM.setPosition(p(WALL[i].x - AIM.w,AIM.y))
 		 }
+	     } 
+	  if(WALL[i].isStaticIntersect(AIM.getStaticBoxW(0,-speed,0,speed))){
+		 
+		 if(dY == -speed){
 			 
-	     if(dY = -speed){
 		 dY = 0;
+		 AIM.setPosition(p(AIM.x, WALL[i].y + WALL[i].h))
 		 }
+	     } 
+	  if(WALL[i].isStaticIntersect(AIM.getStaticBoxS(0,0,0,speed))){
+		 
+		 if(dY == speed){
 			 
-	     if(dY = -speed){
 		 dY = 0;
+		 AIM.setPosition(p(AIM.x, WALL[i].y - AIM.h))
 		 }
-     }//if(AIM.isStaticIntersect( wall1.getStaticBox())){
+	     } 
+		 
+		
+	     
+    
+	
+	
+	
+	
 	 }  //for(var i in wall)  
   
 	 }	//var COLLISION = function()   
@@ -112,20 +135,25 @@
 	
 	
 	
-	
-	
+		
 	AIM.draw();
 	wall1.draw();
     wall2.draw();
 	wall3.draw();
 	wall4.draw();
+	
 
-    AIM.drawStaticBox();
+   // AIM.drawStaticBoxA(-2.4,0,2.4);  
+   // AIM.drawStaticBoxD(0,0,2.4);
+   //AIM.drawStaticBoxW(0,-2.4,0,2.4);
+   //AIM.drawStaticBoxS(0,0,0,2.4);
+	
+	/*
     wall1.drawStaticBox();
     wall2.drawStaticBox();
     wall3.drawStaticBox();
     wall4.drawStaticBox();
-   	
+   	*/
 	 
  	 
 	 

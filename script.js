@@ -1,5 +1,4 @@
- 
-  var IMAGE = document.createElement("img"); 
+ var IMAGE = document.createElement("img"); 
    IMAGE.setAttribute('src','fon.PNG'); 
 
  
@@ -7,42 +6,42 @@
  
  var pjs = new PointJS(1280, 720 , {background : document.body.appendChild(IMAGE)});
 	
-  js.system.initFullPage(); 	
+ // js.system.initFullPage(); 	
 	
      var game = pjs.game;
 	 var key = pjs.keyControl;
 	 key.initKeyControl();
 	 var b = "";
-   	 var  speed = 12;
+   	 var  speed = 19;
 	
 	 var p = pjs.vector.point;
 	 var wall1 = game.newRectObject(   { 
-     x : 1, 
+     x : 5, 
      y : 1, 
      w : 1, 
-     h : 650, 
+     h : 478, 
      
      alpha	: 0 
      });
      var wall2 = game.newRectObject(   { 
      x : 1, 
-     y : 1, 
-     w : 650, 
+     y : 5, 
+     w : 930, 
      h : 1, 
      alpha : 0,
 	 filcolor:"red"
       });
      var wall3 = game.newRectObject(   { 
-     x : 649, 
+     x : 910, 
      y : 1, 
      w : 1, 
-     h : 650, 
+     h : 478, 
      alpha : 0
      });
      var wall4 = game.newRectObject(   { 
      x : 1, 
-     y : 499, 
-     w : 650, 
+     y : 485, 
+     w : 930, 
      h : 1, 
      alpha : 0 
      });
@@ -160,10 +159,10 @@
    //AIM.drawStaticBoxS(0,0,0,2.4);
 	
 	
-    wall1.drawStaticBox();
-    wall2.drawStaticBox();
-    wall3.drawStaticBox();
-    wall4.drawStaticBox();
+   // wall1.drawStaticBox();
+   // wall2.drawStaticBox();
+   //wall3.drawStaticBox();
+   // wall4.drawStaticBox();
    	
 	 
  	 

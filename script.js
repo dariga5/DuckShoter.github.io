@@ -1,6 +1,6 @@
  
   var IMAGE = document.createElement("img"); 
-   IMAGE.setAttribute('src','fon.JPG'); 
+   IMAGE.setAttribute('src','fon.PNG'); 
 
  
  

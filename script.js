@@ -1,4 +1,13 @@
- var pjs = new PointJS(650, 500 , {backgroundColor:"gray"})
+ 
+  var IMAGE = document.createElement("img"); 
+   IMAGE.setAttribute('src','fon.JPG'); 
+
+ 
+ 
+ 
+ var pjs = new PointJS(1280, 720 , {background : document.body.appendChild(IMAGE)});
+	
+  js.system.initFullPage(); 	
 	
      var game = pjs.game;
 	 var key = pjs.keyControl;
@@ -10,31 +19,32 @@
 	 var wall1 = game.newRectObject(   { 
      x : 1, 
      y : 1, 
-     w : 20, 
+     w : 1, 
      h : 650, 
      
-     alpha	: 1 
+     alpha	: 0 
      });
      var wall2 = game.newRectObject(   { 
      x : 1, 
      y : 1, 
      w : 650, 
-     h : 20, 
-     alpha : 1
+     h : 1, 
+     alpha : 0,
+	 filcolor:"red"
       });
      var wall3 = game.newRectObject(   { 
-     x : 630, 
+     x : 649, 
      y : 1, 
-     w : 20, 
+     w : 1, 
      h : 650, 
-     alpha : 1
+     alpha : 0
      });
      var wall4 = game.newRectObject(   { 
      x : 1, 
-     y : 460, 
+     y : 499, 
      w : 650, 
-     h : 20, 
-     alpha : 1 
+     h : 1, 
+     alpha : 0 
      });
 	 
 	 var AIM = game.newCircleObject(   { 
@@ -69,6 +79,7 @@
         dY = speed	;	
 	 }
 	  }
+	  
    var COLLISION = function(){
 		 
      for(var i in WALL) {
@@ -148,12 +159,12 @@
    //AIM.drawStaticBoxW(0,-2.4,0,2.4);
    //AIM.drawStaticBoxS(0,0,0,2.4);
 	
-	/*
+	
     wall1.drawStaticBox();
     wall2.drawStaticBox();
     wall3.drawStaticBox();
     wall4.drawStaticBox();
-   	*/
+   	
 	 
  	 
 	 

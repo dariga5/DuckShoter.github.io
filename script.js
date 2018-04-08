@@ -8,14 +8,14 @@
  // js.system.initFullPage(); 	
 	
      var game = pjs.game;
-	 var log = pjs.system.log;
+	 
      var p = pjs.vector.point;	
 	 var key = pjs.keyControl;
 	 key.initKeyControl();
-	 var b = 0;
 	 var b =  "";
 	 var  score = 0;
    	 var  speed = 23;
+	
 	
 	
 	 var wall1 = game.newRectObject(   { 

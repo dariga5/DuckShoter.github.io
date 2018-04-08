@@ -1,12 +1,9 @@
 
- 
- 
- 
  var BACKGROUND = document.createElement("img"); 
    BACKGROUND.setAttribute('src','fon.PNG'); 
  
  
- var pjs = new PointJS(1280, 720 , {background : document.body.appendChild(BACKGROUND)});
+ var pjs = new PointJS(903, 478 , {background : document.body.appendChild(BACKGROUND)});
 	
  // js.system.initFullPage(); 	
 	
@@ -15,27 +12,30 @@
      var p = pjs.vector.point;	
 	 var key = pjs.keyControl;
 	 key.initKeyControl();
-	 var b = "";
-   	 var  speed = 19;
+	 var b = 0;
+	 var b =  "";
+	 var  score = 0;
+   	 var  speed = 23;
+	
 	
 	 var wall1 = game.newRectObject(   { 
      x : 5, 
      y : 1, 
      w : 1, 
      h : 478, 
-     
+      
      alpha	: 0 
      });
      var wall2 = game.newRectObject(   { 
      x : 1, 
      y : 5, 
-     w : 930, 
+     w : 910, 
      h : 1, 
      alpha : 0,
 	 filcolor:"red"
       });
      var wall3 = game.newRectObject(   { 
-     x : 910, 
+     x : 903, 
      y : 1, 
      w : 1, 
      h : 478, 
@@ -43,15 +43,15 @@
      });
      var wall4 = game.newRectObject(   { 
      x : 1, 
-     y : 485, 
-     w : 930, 
+     y : 478, 
+     w : 903, 
      h : 1, 
      alpha : 0 
      });
 	 
 	 var AIM =  game.newCircleObject(   { 
-     x : 100, 
-     y : 100, 
+     x : 500, 
+     y : 300, 
      radius : 10, 
      fillColor : "#FBFE6F", 
      strokeColor : "#DA4848", 
@@ -73,26 +73,28 @@
     var WALL = [wall1,wall2,wall3,wall4];
      
 	var management  = function (){	
-     dX = dY = 0;	
+    dX = dY  = 0;
+  	
+    	
 	 if(key.isDown("D") || key.isDown("RIGHT")){
 		b="D or RIGHT";
-       	dX = speed	;		 
+       	dX =  speed	;		 
 	 }
 	 if(key.isDown("A") || key.isDown("LEFT")){
 		b="A or LEFT";
-       	dX = -speed	;		 
+       	dX =  -speed	;		 
 	 } 
 	 if(key.isDown("W") || key.isDown("UP")){
 		b="W or UP";
-        dY = -speed	;			 
+        dY =   -speed	;			 
 	 }
 	 if(key.isDown("S") || key.isDown("DOWN")){
 		b="S or DOWN";
-        dY = speed	;	
+        dY =  speed	;	
 	 }
 	  }
 	  
-   var COLLISION = function(){
+   var COLLISIONAIM = function(){
 		 
      for(var i in WALL) {
 		 
@@ -140,39 +142,41 @@
 	
 
 
-      var goDUCK = function(){
-	
+      var ColisionDUCK = function(){
+		  	  
+	   
+	   
 	   for(var i in WALL) {
 		 
 	    if(WALL[i].isStaticIntersect(DUCK.getStaticBoxA(-speed,0,speed))){
 		 
-		  if(dX == -speed){
-		  dX = 0;
+		  if(dx == -speed){
+		  dx = 0;
 		  DUCK.setPosition(p(WALL[i].x+WALL[i].w,DUCK.y))
 		  }
 	      } 
 		 
-	  if(WALL[i].isStaticIntersect(DUCK.getStaticBoxD(0,0,speed))){
+	    if(WALL[i].isStaticIntersect(DUCK.getStaticBoxD(0,0,speed))){
 		 
-		 if(dX == speed){
+		  if(dx == speed){
 			 
-		 dX = 0;
-		 AIM.setPosition(p(WALL[i].x - DUCK.w,DUCK.y))
+		 dx = 0;
+         DUCK.setPosition(p(WALL[i].x - DUCK.w,DUCK.y))
 		 }
 	     } 
-	  if(WALL[i].isStaticIntersect(DUCK.getStaticBoxW(0,-speed,0,speed))){
+	    if(WALL[i].isStaticIntersect(DUCK.getStaticBoxW(0,-speed,0,speed))){
 		 
-		 if(dY == -speed){
+		 if(dy == -speed){
 			 
-		 dY = 0;
+		 dy = 0;
 		 DUCK.setPosition(p(DUCK.x, WALL[i].y + WALL[i].h))
 		 }
 	     } 
 	  if(WALL[i].isStaticIntersect(DUCK.getStaticBoxS(0,0,0,speed))){
 		 
-		 if(dY == speed){
+		 if(dy == speed){
 			 
-		 dY = 0;
+		 dy = 0;
 		 DUCK.setPosition(p(DUCK.x, WALL[i].y - DUCK.h))
 		 }
 	     } 
@@ -182,11 +186,32 @@
     
 	 }  //for(var i in wall)  
   
-	 }	
+	 }//goDUCK
+	 
+	 
+	 
+        
+             
+			 
+			 
+			 
+        var moveDuck =  function (){
+		  dx = dy = a = 0;			  
+          for(i=0;i<=1;i = ColisionDUCK()){	 
+		   
+		   
+		    dy=speed;
+			
+			
+			dx=speed;
+			
+            }
+						
+		  }		              
+	          
 	
 			
-		
-		 
+	 
 		
 		   
 	
@@ -195,15 +220,15 @@
 	 game.newLoop("myGame", function(){
     	 
 	 
+	  
 	
 	
 	
-	
-	management();
-	COLLISION();
-	goDUCK();
+	management();	
+	COLLISIONAIM();
+	moveDuck();
 	AIM.move(p(dX,dY));	
-	DUCK.move(p(dX,dY));	
+	DUCK.move(p(dx,dy));	
 	
 	
 	
@@ -218,12 +243,14 @@
 	wall4.draw();
 	
 
+   // AIM.drawStaticBox();  
    // AIM.drawStaticBoxA(-2.4,0,2.4);  
    // AIM.drawStaticBoxD(0,0,2.4);
    //AIM.drawStaticBoxW(0,-2.4,0,2.4);
    //AIM.drawStaticBoxS(0,0,0,2.4);
 	
 	
+	//DUCK.drawStaticBox()
 	//DUCK.drawStaticBoxW()
 	//DUCK.drawStaticBoxA()
 	//DUCK.drawStaticBoxS()
@@ -232,7 +259,7 @@
 	
     //wall1.drawStaticBox();
     //wall2.drawStaticBox();
-    //wall3.drawStaticBox();
+    // wall3.drawStaticBox();
     //wall4.drawStaticBox();
    	
 	 
@@ -251,6 +278,8 @@
 	 
 	 })
 	 
+	
+	
 	 
 	 
 	game.setLoop("myGame");

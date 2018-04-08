@@ -14,7 +14,8 @@
 	 key.initKeyControl();
 	 var b =  "";
 	 var  score = 0;
-   	 var  speed = 23;
+	 var  scpreWrite = "";
+   	 var  speed = 15;
 	
 	
 	
@@ -32,7 +33,6 @@
      w : 910, 
      h : 1, 
      alpha : 0,
-	 filcolor:"red"
       });
      var wall3 = game.newRectObject(   { 
      x : 903, 
@@ -188,26 +188,46 @@
   
 	 }//goDUCK
 	 
-	 
+	     
 	 
         
-             
+         var getRandom = function(){
+			
+			 return Math.random();
+						 
+		    } 
 			 
 			 
 			 
         var moveDuck =  function (){
-		  dx = dy = a = 0;			  
-          for(i=0;i<=1;i = ColisionDUCK()){	 
-		   
-		   
-		    dy=speed;
+		  dx = dy = 0;			  
+          for(i=0;i<=1; i = ColisionDUCK()){
+			  
 			
 			
-			dx=speed;
 			
-            }
+			
+            if(getRandom()>0.495){
+				dx+=speed;
+			}
+			else{
+				dx-=speed;
+			}
+			if(getRandom()>0.495){
+				dy+=speed;
+			}
+			else{
+				dy-=speed;
+			}
+			 
+          
+            
+             
+
+			
+            }//for Duck
 						
-		  }		              
+		  }	//move	              
 	          
 	
 			
@@ -243,9 +263,9 @@
 	wall4.draw();
 	
 
-   // AIM.drawStaticBox();  
-   // AIM.drawStaticBoxA(-2.4,0,2.4);  
-   // AIM.drawStaticBoxD(0,0,2.4);
+   //AIM.drawStaticBox();  
+   //AIM.drawStaticBoxA(-2.4,0,2.4);  
+   //AIM.drawStaticBoxD(0,0,2.4);
    //AIM.drawStaticBoxW(0,-2.4,0,2.4);
    //AIM.drawStaticBoxS(0,0,0,2.4);
 	
@@ -276,7 +296,9 @@
 	 size: 15
        });
 	 
-	 })
+	 })//myGames
+	  
+	 
 	 
 	
 	

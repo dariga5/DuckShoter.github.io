@@ -13,12 +13,12 @@
 	 var key = pjs.keyControl;
 	 key.initKeyControl();
 	 var b =  "";
-	 var  score = 0;
-	 var  scpreWrite = "";
+	 var   score = 0;	
    	 var  speed = 15;
-	
-	
-	
+	 var speedD = 7;
+	 var bullets = 10;
+	 
+		
 	 var wall1 = game.newRectObject(   { 
      x : 5, 
      y : 1, 
@@ -139,7 +139,7 @@
 	 }	//var COLLISION = function()   
 	  
 	
-	
+	 
 
 
       var ColisionDUCK = function(){
@@ -148,33 +148,33 @@
 	   
 	   for(var i in WALL) {
 		 
-	    if(WALL[i].isStaticIntersect(DUCK.getStaticBoxA(-speed,0,speed))){
+	    if(WALL[i].isStaticIntersect(DUCK.getStaticBoxA(-speedD,0,speedD))){
 		 
-		  if(dx == -speed){
+		  if(dx == -speedD){
 		  dx = 0;
 		  DUCK.setPosition(p(WALL[i].x+WALL[i].w,DUCK.y))
 		  }
 	      } 
 		 
-	    if(WALL[i].isStaticIntersect(DUCK.getStaticBoxD(0,0,speed))){
+	    if(WALL[i].isStaticIntersect(DUCK.getStaticBoxD(0,0,speedD))){
 		 
-		  if(dx == speed){
+		  if(dx == speedD){
 			 
 		 dx = 0;
          DUCK.setPosition(p(WALL[i].x - DUCK.w,DUCK.y))
 		 }
 	     } 
-	    if(WALL[i].isStaticIntersect(DUCK.getStaticBoxW(0,-speed,0,speed))){
+	    if(WALL[i].isStaticIntersect(DUCK.getStaticBoxW(0,-speedD,0,speedD))){
 		 
-		 if(dy == -speed){
+		 if(dy == -speedD){
 			 
 		 dy = 0;
 		 DUCK.setPosition(p(DUCK.x, WALL[i].y + WALL[i].h))
 		 }
 	     } 
-	  if(WALL[i].isStaticIntersect(DUCK.getStaticBoxS(0,0,0,speed))){
+	  if(WALL[i].isStaticIntersect(DUCK.getStaticBoxS(0,0,0,speedD))){
 		 
-		 if(dy == speed){
+		 if(dy == speedD){
 			 
 		 dy = 0;
 		 DUCK.setPosition(p(DUCK.x, WALL[i].y - DUCK.h))
@@ -187,9 +187,9 @@
 	 }  //for(var i in wall)  
   
 	 }//goDUCK
-	 
 	     
-	 
+	     
+         	 
         
          var getRandom = function(){
 			
@@ -204,22 +204,23 @@
           for(i=0;i<=1; i = ColisionDUCK()){
 			  
 			
-			
-			
-			
+					
             if(getRandom()>0.495){
-				dx+=speed;
+				dx+=speedD;
 			}
+			
 			else{
-				dx-=speed;
+				dx-=speedD;
 			}
+			
 			if(getRandom()>0.495){
-				dy+=speed;
+				dy+=speedD;
 			}
+			
 			else{
-				dy-=speed;
+				dy-=speedD;
 			}
-			 
+			
           
             
              
@@ -227,11 +228,37 @@
 			
             }//for Duck
 						
-		  }	//move	              
-	          
-	
+		  }	//move	
+		 	  
+	   var shot = function(){
+		     
+			 pjs.brush.drawText({
+             text : "TOTAL BULLETS  10  " , 
+             x : 800, y : 20, 
+             color : "black"
+			 });
+			 
+		    if(key.isUp("SPACE")){
+			 bullets--;
+			 
+			 
+			 
+              if(bullets < 0){
+				  billets = 0;
+				  return bullets;
+				  
+			  }//if 0 			   
+			   console.log(bullets);
+			    
+		   }//isUP
+		   if(AIM.isStaticIntersect(DUCK.getStaticBox()) && key.isUp("SPACE")){
+			  score+=10;
+			  console.log(score);
+              return score;			  
+               	}//if AIM = DUCK
 			
-	 
+     	
+	   }//shot
 		
 		   
 	
@@ -245,7 +272,7 @@
 	
 	
 	management();	
-	COLLISIONAIM();
+	COLLISIONAIM();   	
 	moveDuck();
 	AIM.move(p(dX,dY));	
 	DUCK.move(p(dx,dy));	
@@ -263,7 +290,7 @@
 	wall4.draw();
 	
 
-   //AIM.drawStaticBox();  
+  // AIM.drawStaticBox();  
    //AIM.drawStaticBoxA(-2.4,0,2.4);  
    //AIM.drawStaticBoxD(0,0,2.4);
    //AIM.drawStaticBoxW(0,-2.4,0,2.4);
@@ -286,7 +313,7 @@
  	 
 	 
 	 
-	 
+	shot(); 
 	 
 	 
 	 pjs.brush.drawText({
@@ -296,6 +323,7 @@
 	 size: 15
        });
 	 
+	
 	 })//myGames
 	  
 	 

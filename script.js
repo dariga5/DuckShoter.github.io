@@ -231,15 +231,17 @@
 		  }	//move	
 		 	  
 	   var shot = function(){
-		     
+		    var a = 10; //пуль за раз  
 			 pjs.brush.drawText({
-             text : "TOTAL BULLETS  10  " , 
-             x : 800, y : 20, 
+             text : "Bullets still left : 10 "  , 
+             x : 780, y : 10, 
+			 size : 15,
+			 style : "bold italic",
              color : "black"
 			 });
 			 
 		    if(key.isUp("SPACE")){
-			 bullets--;
+			 bullets-=a;
 			 
 			 
 			 
@@ -252,7 +254,7 @@
 			    
 		   }//isUP
 		   if(AIM.isStaticIntersect(DUCK.getStaticBox()) && key.isUp("SPACE")){
-			  score+=10;
+			  score+=10*a;
 			  console.log(score);
               return score;			  
                	}//if AIM = DUCK
@@ -266,7 +268,7 @@
 	 
 	 game.newLoop("myGame", function(){
     	 
-	 
+	  
 	  
 	
 	
@@ -290,7 +292,7 @@
 	wall4.draw();
 	
 
-  // AIM.drawStaticBox();  
+   //AIM.drawStaticBox();  
    //AIM.drawStaticBoxA(-2.4,0,2.4);  
    //AIM.drawStaticBoxD(0,0,2.4);
    //AIM.drawStaticBoxW(0,-2.4,0,2.4);
@@ -318,7 +320,8 @@
 	 
 	 pjs.brush.drawText({
      text :  key.getCountKeysDown()>0?b : b="", 
-     x : 10, y : 10, 
+     x : 780, y : 29, 
+	 style : "bold italic",
      color : "black" ,
 	 size: 15
        });

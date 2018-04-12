@@ -1,23 +1,23 @@
 
  var BACKGROUND = document.createElement("img"); 
-   BACKGROUND.setAttribute('src','fon.PNG'); 
+   BACKGROUND.setAttribute('src','fon.JPG'); 
  
+  //var shot = pjs.wAudio.newAudio("shot.wav", 0.4); 
+  
+ var pjs = new PointJS(1280, 720 , {background : document.body.appendChild(BACKGROUND)});
+	var system = pjs.system;
  
- var pjs = new PointJS(903, 478 , {background : document.body.appendChild(BACKGROUND)});
 	
- // js.system.initFullPage(); 	
-	
-     var game = pjs.game;
-	 
+     var game = pjs.game;	 
      var p = pjs.vector.point;	
 	 var key = pjs.keyControl;
 	 key.initKeyControl();
 	 var b =  "";
-	 var   score = 0;	
-   	 var  speed = 15;
-	 var speedD = 7;
-	 var bullets = 10;
 	 
+   	 var  speed = 15;
+	 var speedD = 12;
+	 bullets = 10;
+	 score = 0;	
 		
 	 var wall1 = game.newRectObject(   { 
      x : 5, 
@@ -61,15 +61,49 @@
      visible : true 
    });
      var DUCK  = game.newImageObject(   { 
-     file : "th_duck_hunt_bird_big.gif", 
+     file : "th_duck_hunt_bird_big.GIF", 
      x : 100, 
      y : 100, 
      w : 62, 
      h : 56, 
-     //scale : 0.5, // ��������� �������� � 2 ����, ���� �� ������ ������ � ������
+     //scale : 0.5, // уменьшить картинку в 2 раза, если не заданы ширина и высота
    });
-  
-     
+       var insrtuctiv = game.newTextObject({
+		 x : 10, 
+         y : 500, 
+         text : "W-Вверх, A-Влево, S-Вниз , D-Направо , Пробел - стрелять ",    
+         style : "bold italic",		 
+         size : 20,
+		 alpha : 0.8, 
+		 color : "black"  
+	   });
+	 
+
+        var WriteLastBullets = game.newTextObject(   { 
+         x : 10, 
+         y : 5, 
+         text : "Осталось пуль :",
+         style : "bold italic",		 
+         size : 20,
+		 color : "black"
+		})	;
+		
+        var WriteScore  = game.newTextObject(   { 
+         x : 10, 
+         y : 30, 
+         text : "Набранно очков : ", 
+		 style : "bold italic",
+         size : 20,
+		  color : "black"
+		});	
+	    
+	   
+	var getRandom = function(){
+	return Math.random();						 
+		    }    
+	 
+	 
+	 
     var WALL = [wall1,wall2,wall3,wall4];
      
 	var management  = function (){	
@@ -191,11 +225,7 @@
 	     
          	 
         
-         var getRandom = function(){
-			
-			 return Math.random();
-						 
-		    } 
+       
 			 
 			 
 			 
@@ -229,81 +259,100 @@
             }//for Duck
 						
 		  }	//move	
-		 	  
-	   var shot = function(){
-		    var a = 10; //���� �� ���  
-			 pjs.brush.drawText({
-             text : "Bullets still left : 10 "  , 
-             x : 780, y : 10, 
-			 size : 15,
-			 style : "bold italic",
-             color : "black"
-			 });
-			 
-		    if(key.isUp("SPACE")){
-			 bullets-=a;
-			 
-			 
-			 
-              if(bullets < 0){
-				  billets = 0;
-				  return bullets;
+	 
+       			 
+		   
+		   
+		   
+		   
+	   	
+
+
+
+	   
+	   var shotinq = function(){
+		    var a = 1; //пуль за раз
+              if(key.isUp("SPACE")){
+				   bullets -=a;
+				   
+			  }   
+			  
+ 			 if(AIM.isStaticIntersect(DUCK.getStaticBox()) && key.isUp("SPACE")){
+			  score+=10*a; 
+			  
+			  }//if AIM = DUCK
+			  
+			 if(bullets < 0 ){
+				  bullets = 0;
 				  
-			  }//if 0 			   
-			   console.log(bullets);
-			    
-		   }//isUP
-		   if(AIM.isStaticIntersect(DUCK.getStaticBox()) && key.isUp("SPACE")){
-			  score+=10*a;
-			  console.log(score);
-              return score;			  
-               	}//if AIM = DUCK
-			
-     	
+                  			 
+				  alert("Игра окончена ,пожалуйста, перезапустите страницу чтобы начать заново , вы набрали " + score +  " очков из 100");
+			      return bullets ;
+			 }
+             			 
 	   }//shot
 		
-		   
 	
-	
-	 
-	 game.newLoop("myGame", function(){
-    	 
-	  
-	  
-	
-	
-	
-	management();	
-	COLLISIONAIM();   	
-	moveDuck();
-	AIM.move(p(dX,dY));	
-	DUCK.move(p(dx,dy));	
-	
-	
-	
-	
-	
+		 
+    var draw = function(){
 		
-	AIM.draw();
+    AIM.draw();
 	DUCK.draw();
 	wall1.draw();
     wall2.draw();
 	wall3.draw();
 	wall4.draw();
+	WriteLastBullets.draw();
+	WriteScore.draw();
+    insrtuctiv.draw();	
+    WriteLastBullets.reStyle({
+	   text : "Осталось пуль : " + bullets
+    });
+    WriteScore.reStyle({
+	   text : "Набранно очков : " + score
+    });
+  
+    pjs.brush.drawText({
+       text :  key.getCountKeysDown()>0?b : b="Nothing pressed", 
+       x : 10, y : 55, 
+	   style : "bold italic",
+       color : "black" ,
+	   size: 20
+       });
+	   
+	  }//draw
 	
-
+ 
+      
+	  
+	  
+	  
+	  
+	 game.newLoop("myGame", function(){
+    	 
+		 	 
+	shotinq(); 	
+	management();	
+	COLLISIONAIM();   	
+	moveDuck();
+	AIM.move(p(dX,dY));	
+	DUCK.move(p(dx,dy));	
+	draw();
+	
+	
+ 
    //AIM.drawStaticBox();  
-   //AIM.drawStaticBoxA(-2.4,0,2.4);  
-   //AIM.drawStaticBoxD(0,0,2.4);
-   //AIM.drawStaticBoxW(0,-2.4,0,2.4);
-   //AIM.drawStaticBoxS(0,0,0,2.4);
+   //AIM.drawStaticBoxA();
+   //AIM.drawStaticBoxD();
+   //AIM.drawStaticBoxW();
+   //AIM.drawStaticBoxS();
 	
 	
-	//DUCK.drawStaticBox()
-	//DUCK.drawStaticBoxW()
-	//DUCK.drawStaticBoxA()
-	//DUCK.drawStaticBoxS()
-	//DUCK.drawStaticBoxD()
+	//DUCK.drawStaticBox();
+	//DUCK.drawStaticBoxW();
+	//DUCK.drawStaticBoxA();
+	//DUCK.drawStaticBoxS();
+	//DUCK.drawStaticBoxD();
 	
 	
     //wall1.drawStaticBox();
@@ -311,29 +360,10 @@
     // wall3.drawStaticBox();
     //wall4.drawStaticBox();
    	
-	 
- 	 
-	 
-	 
-	shot(); 
-	 
-	 
-	 pjs.brush.drawText({
-     text :  key.getCountKeysDown()>0?b : b="", 
-     x : 780, y : 29, 
-	 style : "bold italic",
-     color : "black" ,
-	 size: 15
-       });
-	 
-	
+	 	
 	 })//myGames
 	  
 	 
-	 
 	
-	
-	 
-	 
 	game.setLoop("myGame");
 	game.start();
